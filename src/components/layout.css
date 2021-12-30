@@ -1,0 +1,21 @@
+body {
+  background-color: #eff2f5 !important;
+}
+
+[data-mount] {
+  height: 100%;
+}
+
+.ant-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ant-comment-content-detail {
+  white-space: pre-wrap;
+}
+
+.ant-comment-avatar {
+  cursor: default !important;
+}
