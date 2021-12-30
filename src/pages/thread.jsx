@@ -16,6 +16,10 @@ export default function Thread() {
       .then(thread => {
         setThread(thread);
       })
+      .catch((err) => {
+        console.error(err);
+        message.error('Failed to fetch thread, please try again later.', 5);
+      })
       .then(() => {
         const { hash } = window.location;
 
@@ -24,8 +28,7 @@ export default function Thread() {
         }
       })
       .catch((err) => {
-        console.error(err);
-        message.error('Failed to fetch thread, please try again later.', 5);
+        console.error(`Failed to scroll to hash: ${err}`);
       });
   };
 
