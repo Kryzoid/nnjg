@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { List, Comment, Avatar, Typography, Skeleton, message } from 'antd';
 import users from '../data/users';
 import { LockOutlined } from '@ant-design/icons';
+import scrollToElement from 'scroll-to-element';
 
 const { Title, Paragraph } = Typography;
 
@@ -14,6 +15,13 @@ export default function Thread() {
     import(`../data/posts/topic-${threadId}.json`)
       .then(thread => {
         setThread(thread);
+      })
+      .then(() => {
+        const { hash } = window.location;
+
+        if (hash) {
+          scrollToElement(hash, {duration: 250});
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -52,7 +60,7 @@ export default function Thread() {
         return (
           <Comment
             style={{backgroundColor: 'white', paddingLeft: '16px', paddingRight: '16px'}}
-            id={post.postId}
+            id={`post-${post.postId}`}
             author={userColor ? <span style={{color: `#${userColor}`}}>{username}</span> : username}
             avatar={
               <Avatar size="large" style={{ ...(userColor && {backgroundColor: `#${userColor}`})}}>
@@ -64,7 +72,7 @@ export default function Thread() {
               </Avatar>
             }
             content={post.postText}
-            datetime={<a href={`#${post.postId}`} style={{color: 'unset'}}>{new Date(post.postTime * 1000).toLocaleString('en-US')}</a>}
+            datetime={<a href={`#post-${post.postId}`} style={{color: 'unset'}}>{new Date(post.postTime * 1000).toLocaleString('en-US')}</a>}
           />
         );
       }}
